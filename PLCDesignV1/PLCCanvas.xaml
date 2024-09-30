@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="PLCDesignV1.PLCCanvas"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PLCDesignV1" xmlns:sys="clr-namespace:System;assembly=netstandard"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="GridRectangleStyle" TargetType="Rectangle">
+            <Setter Property="Stroke" Value="Gray"/>
+            <Setter Property="StrokeThickness" Value="0.5"/>
+            <Setter Property="StrokeDashArray" Value="2,2"/>
+            <Setter Property="Fill" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Stroke" Value="Blue"/>
+                    <Setter Property="StrokeThickness" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- 第一行：设计画布部分，占用大部分空间 -->
+            <RowDefinition Height="5*" />
+            <!-- 第二行：GridSplitter 占据的分隔区域 -->
+            <RowDefinition Height="Auto" />
+            <!-- 第三行：DataGrid部分 -->
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!-- 设计区的滚动视图 -->
+        <ScrollViewer x:Name="DesignCanvasScrollViewer" Grid.Row="0" Grid.ColumnSpan="2"
+                  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
+            <Grid x:Name="DesignCanvas" Height="1800" Width="1800" VerticalAlignment="Top">
+                <Canvas x:Name="LineCanvas" Background="Transparent" IsHitTestVisible="True" Width="1800" Height="1800" Visibility="Visible" />
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="添加行" Click="AddRow_Click"/>
+                        <MenuItem Header="删除行" Click="DeleteRow_Click"/>
+                        <MenuItem Header="添加列" Click="AddCloumn_Click"/>
+                        <MenuItem Header="删除列" Click="DeleteCloumn_Click"/>
+                        <MenuItem Header="删除竖线" Click="DeleteHorizontalLine_Click"/>
+                    </ContextMenu>
+                </Grid.ContextMenu>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- 可调整大小的分隔条 -->
+        <GridSplitter Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5" Background="Gray" />
+
+        <!-- 变量表  RowEditEnding="DataGrid_RowEditEnding" -->
+        <DataGrid x:Name="PointDataGrid" Grid.Row="2" Grid.Column="0" ItemsSource="{Binding SelectedModulePoints}"  AutoGenerateColumns="False" Cursor="" CanUserAddRows="False"  CanUserDeleteRows="False" CellEditEnding="DataGrid_CellEditEnding" BeginningEdit="DataGrid_BeginningEdit">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="删除" Click="DeleteSelectedRow_Click" />
+                    <MenuItem Header="添加" Click="AddSelectedRow_Click" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridComboBoxColumn Header="是否输入" SelectedValueBinding="{Binding IsInput, Mode=TwoWay}" Width="Auto">
+                    <DataGridComboBoxColumn.ItemsSource>
+                        <x:Array Type="{x:Type sys:Boolean}">
+                            <sys:Boolean>true</sys:Boolean>
+                            <sys:Boolean>false</sys:Boolean>
+                        </x:Array>
+                    </DataGridComboBoxColumn.ItemsSource>
+                </DataGridComboBoxColumn>
+                <DataGridTextColumn Header="名称" Binding="{Binding Name, Mode=TwoWay}" Width="Auto" />
+                    <DataGridTextColumn Header="地址" Binding="{Binding Address, Mode=TwoWay}" Width="Auto" />
+                    <DataGridTextColumn Header="符号" Binding="{Binding Symbol, Mode=TwoWay}" Width="Auto" />
+                    <DataGridTextColumn Header="变量类型" Binding="{Binding VariableType, Mode=TwoWay}" Width="Auto" />
+                    <DataGridTextColumn Header="数据类型" Binding="{Binding DataType, Mode=TwoWay}" Width="Auto" />
+                    <DataGridTextColumn Header="注释" Binding="{Binding Comment, Mode=TwoWay}" Width="Auto" />
+                </DataGrid.Columns>
+            </DataGrid>
+        <DataGrid x:Name="PointOperandDataGrid"  Grid.Row="2" Grid.Column="1"  ItemsSource="{Binding SelectedOperandModulePoints}"  AutoGenerateColumns="False" Cursor="" CanUserAddRows="False"  CanUserDeleteRows="False" CellEditEnding="DataGrid_CellEditEnding" BeginningEdit="DataGrid_BeginningEdit"  >
+        <DataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="删除" Click="DeleteSelectedRow_Click" />
+                <!--<MenuItem Header="添加" Click="AddSelectedRow_Click" />-->
+            </ContextMenu>
+        </DataGrid.ContextMenu>
+        <DataGrid.Columns>
+                <DataGridComboBoxColumn Header="是否输入" SelectedValueBinding="{Binding IsInput, Mode=TwoWay}" Width="Auto">
+                    <DataGridComboBoxColumn.ItemsSource>
+                        <x:Array Type="{x:Type sys:Boolean}">
+                            <sys:Boolean>true</sys:Boolean>
+                            <sys:Boolean>false</sys:Boolean>
+                        </x:Array>
+                    </DataGridComboBoxColumn.ItemsSource>
+                </DataGridComboBoxColumn>
+                <DataGridTextColumn Header="名称" Binding="{Binding Name, Mode=TwoWay}" Width="Auto" />
+            <DataGridTextColumn Header="地址" Binding="{Binding Address, Mode=TwoWay}" Width="Auto" />
+            <DataGridTextColumn Header="符号" Binding="{Binding Symbol, Mode=TwoWay}" Width="Auto" />
+            <DataGridTextColumn Header="变量类型" Binding="{Binding VariableType, Mode=TwoWay}" Width="Auto" />
+            <DataGridTextColumn Header="数据类型" Binding="{Binding DataType, Mode=TwoWay}" Width="Auto" />
+                    <DataGridTextColumn Header="注释" Binding="{Binding Comment, Mode=TwoWay}" Width="Auto" />
+        </DataGrid.Columns>
+    </DataGrid>
+
+           
+
+
+
+    </Grid>
+
+</UserControl>

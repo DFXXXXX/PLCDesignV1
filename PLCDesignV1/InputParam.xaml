@@ -1,0 +1,57 @@
+﻿<Window x:Class="PLCDesignV1.InputParam"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PLCDesignV1"
+        mc:Ignorable="d"
+        Title="InputParam" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="名称" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="NameTextBox" Margin="5"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="地址" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="AddressTextBox" Margin="5"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="符号" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="SymbolTextBox" Margin="5"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="变量类型" VerticalAlignment="Center" Margin="5"/>
+        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="VariableTypeComboBox" Margin="5">
+            <ComboBoxItem Content="TEMP"/>
+            <ComboBoxItem Content="Type2"/>
+            <ComboBoxItem Content="Type3"/>
+        </ComboBox>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="数据类型" VerticalAlignment="Center" Margin="5"/>
+        <ComboBox Grid.Row="4" Grid.Column="1" x:Name="DataTypeComboBox" Margin="5">
+            <ComboBoxItem Content="int"/>
+            <ComboBoxItem Content="bool"/>
+            <ComboBoxItem Content="string"/>
+            <ComboBoxItem Content="byte"/>
+        </ComboBox>
+
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="注释" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="5" Grid.Column="1" x:Name="CommentTextBox" Margin="5"/>
+
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="是否输入" VerticalAlignment="Center" Margin="5"/>
+        <CheckBox Grid.Row="6" Grid.Column="1" x:Name="IsInputCheckBox" Margin="5"/>
+
+        <Button Grid.Row="7" Grid.Column="1" Content="OK" Click="OKButton_Click" HorizontalAlignment="Right" Margin="5"/>
+    </Grid>
+</Window>
